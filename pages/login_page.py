@@ -26,3 +26,4 @@ class LoginPage(BasePage):
         self.click_on_element_js(recovery_button)
         current_url = self.current_url()
         return current_url
+
