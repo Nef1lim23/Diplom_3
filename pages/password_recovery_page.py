@@ -18,3 +18,4 @@ class PasswordRecoveryPage(BasePage):
         email = create_user_and_get_creds['email']
         email_input = self.find_element_with_wait(PasswordRecoveryLocators.INPUT_EMAIL)
         email_input.send_keys(email)
+

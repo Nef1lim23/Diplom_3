@@ -1,6 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from seletools.actions import drag_and_drop
 
 
 class BasePage:
@@ -12,8 +12,14 @@ class BasePage:
         self.driver.get(url)
 
     def find_element_with_wait(self, locator):
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(locator))
         return self.driver.find_element(*locator)
+
+    def find_elements_with_wait(self, locator):
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located(locator))
+        return self.driver.find_elements(*locator)
 
     def click_to_element(self, locator):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(locator))
@@ -39,3 +45,6 @@ class BasePage:
         return WebDriverWait(self.driver, 20).until(
             EC.element_to_be_clickable(locator)
         )
+
+    def move_elements(self, source, target):
+        return drag_and_drop(self.driver, source, target)

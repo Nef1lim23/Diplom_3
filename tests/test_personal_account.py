@@ -19,7 +19,7 @@ class TestPersonalAccount:
         login_page.click_on_login_button()
 
         main_page.wait_page_to_be_loaded()
-        current_url = main_page.click_on_personal_account_button(PERSONAL_ACCOUNT_PAGE)
+        current_url = main_page.click_on_personal_account_button()
         assert current_url == PERSONAL_ACCOUNT_PAGE
 
     @allure.title('переход в раздел «История заказов»')
