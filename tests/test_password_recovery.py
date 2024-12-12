@@ -13,9 +13,7 @@ class TestPasswordRecovery:
     def test_click_on_recover_password_button_successful(self, driver, create_user_and_get_creds):
         main_page = MainPage(driver)
         main_page.click_on_login_button()
-
         login_page = LoginPage(driver)
-
         current_url = login_page.click_on_button_password_recovery()
         assert current_url == FORGOT_PASS_PAGE
 
@@ -23,10 +21,8 @@ class TestPasswordRecovery:
     def test_input_email_and_click_button_recover(self, driver, create_user_and_get_creds):
         main_page = MainPage(driver)
         main_page.click_on_login_button()
-
         login_page = LoginPage(driver)
         login_page.click_on_button_password_recovery()
-
         password_recovery = PasswordRecoveryPage(driver)
         password_recovery.input_email(create_user_and_get_creds)
         current_url = password_recovery.click_on_button_recovery(RESET_PASS_PAGE)
@@ -36,15 +32,11 @@ class TestPasswordRecovery:
     def test_click_on_eye_button(self, driver, create_user_and_get_creds):
         main_page = MainPage(driver)
         main_page.click_on_login_button()
-
         login_page = LoginPage(driver)
         login_page.click_on_button_password_recovery()
-
         password_recovery = PasswordRecoveryPage(driver)
         password_recovery.input_email(create_user_and_get_creds)
         password_recovery.click_on_button_recovery(RESET_PASS_PAGE)
-
         reset_password = ResetPasswordPage(driver)
         reset_password.click_on_eye_button()
-
         assert reset_password.is_password_visible

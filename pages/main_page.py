@@ -76,3 +76,9 @@ class MainPage(BasePage):
     def close_order_window(self):
         close_button = self.find_element_with_wait(MainPageLocators.CLOSE_MODAL_ORDER_WINDOW_BUTTON)
         self.click_on_element_js(close_button)
+
+    @allure.step("Получение номера заказа")
+    def get_order_number(self):
+        initial_value = '9999'
+        self.wait_for_text_to_change(MainPageLocators.ORDER_NUMBER, initial_value)
+        return self.get_text_from_element(MainPageLocators.ORDER_NUMBER)

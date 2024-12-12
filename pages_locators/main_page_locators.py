@@ -17,5 +17,5 @@ class MainPageLocators:
     MODAL_ELEMENT = By.CSS_SELECTOR, "section.Modal_modal__P3_V5"
     CLOSE_MODAL_WINDOW = By.XPATH, "//section[contains(@class, 'Modal_modal_opened__3ISw4')]//button"
     COUNTER_INGREDIENT = By.XPATH, "//p[@class='counter_counter__num__3nue1']"
-
+    ORDER_NUMBER = By.XPATH, "//h2[contains(@class,'Modal_modal__title')]"
 

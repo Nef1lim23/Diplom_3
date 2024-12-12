@@ -2,7 +2,7 @@ import allure
 
 from pages.base_page import BasePage
 from pages_locators.personal_account_locators import PersonalAccountPageLocators
-from urls import ORDER_HISTORY_PAGE
+from urls import ORDER_HISTORY_PAGE, LOGIN_PAGE
 
 
 class PersonalAccountPage(BasePage):
@@ -15,10 +15,10 @@ class PersonalAccountPage(BasePage):
         return self.current_url()
 
     @allure.title('Клик на выход из аккаунта')
-    def click_on_log_out_from_acc(self, url):
+    def click_on_log_out_from_acc(self):
         log_out = self.find_element_with_wait(PersonalAccountPageLocators.BUTTON_LOG_OUT)
         self.click_on_element_js(log_out)
-        self.wait_url_to_be(url)
+        self.wait_url_to_be(LOGIN_PAGE)
         return self.current_url()
 
     @allure.title('Получение номера заказа из истории заказов')

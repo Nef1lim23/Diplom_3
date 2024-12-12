@@ -1,4 +1,5 @@
 import allure
+from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page import BasePage
 from pages_locators.order_feed_locators import OrderFeedLocators
@@ -38,3 +39,38 @@ class OrderFeedPage(BasePage):
     @allure.title('Получение номера счетчика выполненных заказов за все время')
     def get_all_time_counter_number(self):
         self.find_element_with_wait(OrderFeedLocators.ALL_TIME_COUNTER)
+        all_time_counter = self.get_text_from_element(OrderFeedLocators.ALL_TIME_COUNTER)
+        return all_time_counter
+
+    @allure.step("Проверка увеличения счетчика выполненных заказов за все время")
+    def is_all_time_counter_increased(self, initial_counter):
+        current_counter = self.get_all_time_counter_number()
+        return int(current_counter) > int(initial_counter)
+
+    @allure.step("Получение номера счетчика выполненных заказов за сегодня")
+    def get_today_counter_number(self):
+        self.find_element_with_wait(OrderFeedLocators.TODAY_COUNTER)
+        today_counter = self.get_text_from_element(OrderFeedLocators.TODAY_COUNTER)
+        return today_counter
+
+    @allure.step("Проверка увеличения счетчика выполненных заказов за сегодня")
+    def today_counter_increased(self, initial_counter):
+        current_counter = self.get_today_counter_number()
+        return int(current_counter) > int(initial_counter)
+
+    @allure.step("Ожидание появления заказа в списке заказов 'В работе'")
+    def wait_for_order_to_appear(self, order_number):
+        WebDriverWait(self.driver, 10).until(
+            lambda driver: self.is_order_number_in_work_list(order_number)
+        )
+        return True
+
+    @allure.step("Проверка наличия номера заказа в списке 'В работе'")
+    def is_order_number_in_work_list(self, order_number):
+        orders_section = self.find_elements_with_wait(OrderFeedLocators.IN_WORK_ORDERS)
+
+        for order in orders_section:
+            order_text = order.text[1:]
+            if order_text == order_number:
+                return True
+        return False
